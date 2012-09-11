@@ -5,7 +5,7 @@ alias ls='ls -F'
 alias ll='ls -lhF'
 alias la='ls -lAhF'
 
-# history tweaks
+# history tweak - append file (instead of  overwrite)
 shopt -s histappend
 
 # git prompt functions
