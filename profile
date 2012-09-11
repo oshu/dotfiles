@@ -1,7 +1,7 @@
 # bash profile
 
-# Get the aliases and functions
-[[ -f ~/.bashrc ]] && . ~/.bashrc
+# Source in bashrc
+[[ -f "$HOME/git/oshu/dotfiles/bashrc" ]] && . "./$HOME/git/oshu/dotfiles/bashrc"
 
 # Add sbin directories to path
 PATH=$PATH:/sbin:/usr/sbin:$HOME/bin
