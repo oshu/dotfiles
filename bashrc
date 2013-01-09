@@ -1,5 +1,11 @@
 # .bashrc
 
+# check for and source global bashrc
+if [[ -f /etc/bashrc ]]
+then
+    source /etc/bashrc
+fi
+
 # aliases
 alias ls='ls -F'
 alias ll='ls -lhF'
