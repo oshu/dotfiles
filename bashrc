@@ -4,6 +4,7 @@
 alias ls='ls -F'
 alias ll='ls -lhF'
 alias la='ls -lAhF'
+alias df='df -h'
 
 # history tweak - append file (instead of  overwrite)
 shopt -s histappend

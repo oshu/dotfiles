@@ -1,19 +1,38 @@
 # bash profile
 
-# Source in bashrc
-[[ -f "$HOME/git/oshu/dotfiles/bashrc" ]] && . "./$HOME/git/oshu/dotfiles/bashrc"
+BASHRC="$DOTFILES/bashrc"
 
-# Add sbin directories to path
-PATH=$PATH:/sbin:/usr/sbin:$HOME/bin
+# Source in bashrc
+if [[ -f $BASHRC ]]
+then
+    source "$BASHRC"
+fi
+
+# Add sbin directories to path if not already there
+if ! grep -q -e 'sbin' <<< $PATH
+then
+    PATH="$PATH:/sbin:/usr/sbin"
+fi
+
+# add $HOME/bin to path if not already there
+if ! grep -q -e ":$HOME/bin" <<< $PATH
+then
+    PATH="$PATH:$HOME/bin"
+fi
 
 # History tweak - stuff to ignore
-HISTIGNORE="pwd:ls:ls -ltr:"
+HISTIGNORE='clear:ll:la:pwd:ls:ls -ltr:'
 
 # History tweak - ignore duplicate entries
 HISTCONTROL=ignoredups
 
 # History tweak - dump buffer after each command
-[[ -z "$PROMPT_COMMAND" ]] && PROMPT_COMMAND="history -a" || PROMPT_COMMAND="${PROMPT_COMMAND}; history -a"
+if [[ -z $PROMPT_COMMAND ]]
+then
+    PROMPT_COMMAND='history -a'
+else
+    PROMPT_COMMAND="${PROMPT_COMMAND}; history -a"
+fi
 
 # exports
 export HISTIGNORE HISTCONTROL PROMPT_COMMAND PATH
