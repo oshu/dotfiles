@@ -18,6 +18,16 @@ magenta='\[\033[35m\]'
 cyan='\[\033[36m\]'
 white='\[\033[37m\]'
 
+# git prompt functions
+function parse_git_dirty {
+[[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
+}
+
+function parse_git_branch {
+git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
+}
+
+# the prompt
 function draw_prompt {
     #printf '\n'
     printf '$(if (( $? == 0 )); then printf "%s"; else printf "%s"; fi)' $green $red
@@ -38,17 +48,8 @@ alias ll='ls -lhF --color'
 alias la='ls -lAhF --color'
 alias df='df -h'
 
-# history tweak - append file (instead of  overwrite)
+# history tweak - append file (instead of overwrite)
 shopt -s histappend
-
-# git prompt functions
-function parse_git_dirty {
-[[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
-}
-
-function parse_git_branch {
-git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
-}
 
 # no special prompt for root
 if (( $(id -u) > 0 ))
