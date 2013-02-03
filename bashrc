@@ -50,14 +50,10 @@ function parse_git_branch {
 git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
 }
 
-# if git is installed, set up git prompt functions
-my_uid=$( id -u )
-
-# if which git &>/dev/null && (( my_uid > 0 ))
-if (( my_uid > 0 ))
+# no special prompt for root
+if (( $(id -u) > 0 ))
 then
     PS1="$(draw_prompt)"
-    #PS1='\u@\h \W\[\033[1;33m\]$(parse_git_branch)\[\033[0m\]\n$ '
 else
     PS1='\u@\h \W \n\$ '
 fi
