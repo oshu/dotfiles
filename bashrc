@@ -33,9 +33,9 @@ function draw_prompt {
 }
 
 # aliases
-alias ls='ls -F'
-alias ll='ls -lhF'
-alias la='ls -lAhF'
+alias ls='ls -F --color'
+alias ll='ls -lhF --color'
+alias la='ls -lAhF --color'
 alias df='df -h'
 
 # history tweak - append file (instead of  overwrite)
