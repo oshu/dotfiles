@@ -1,5 +1,11 @@
 # .bashrc
 
+# check for and source global bashrc
+if [[ -f /etc/bashrc ]]
+then
+    source /etc/bashrc
+fi
+
 # aliases
 alias ls='ls -F'
 alias ll='ls -lhF'
@@ -23,7 +29,7 @@ my_uid=$( id -u )
 
 if which git &>/dev/null && (( my_uid > 0 ))
 then
-    PS1='\u@\h \W\[\033[1;33m\]$(parse_git_branch)\[\033[0m\]$ '
+    PS1='\u@\h \W\[\033[1;33m\]$(parse_git_branch)\[\033[0m\]\n$ '
 else
-    PS1='\u@\h \W \$ '
+    PS1='\u@\h \W \n\$ '
 fi
