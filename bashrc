@@ -42,7 +42,6 @@ function draw_prompt {
     then
         printf ' '
 	printf '$(if parse_git_ahead; then printf "%s"; else printf "%s"; fi)' $magenta $yellow
-	printf ' '
         printf '$(parse_git_branch)%s' $none
     fi
     printf '\n'
