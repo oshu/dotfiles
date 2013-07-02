@@ -39,7 +39,7 @@ function draw_prompt {
 	printf ' %s$(parse_git_branch)%s' $yellow $none
     fi
     printf '\n'
-    printf '%s\u%s(\!)$ ' $white $none
+    printf '%s\\u%s(\!)$ ' $white $none
 }
 
 # aliases
