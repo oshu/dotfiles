@@ -20,7 +20,7 @@ white='\[\033[37m\]'
 
 # git prompt functions
 function parse_git_dirty {
-git status 2>/dev/null | grep -q -i -e 'nothing to commit*working directory clean' || printf '*'
+git status 2>/dev/null | grep -q -i -e 'nothing to commit.*working directory clean' || printf '*'
 }
 
 function parse_git_branch {
