@@ -20,9 +20,7 @@ white='\[\033[37m\]'
 
 # git prompt functions
 function parse_git_ahead {
-local _COLOR=$yellow
-git status 2>/dev/null | grep -q -i -e 'ahead' && $_COLOR=$magenta
-printf '%s' $_COLOR
+git status 2>/dev/null | grep -q -i -e 'ahead' && return 0 || return 1
 }
 
 function parse_git_dirty {
@@ -42,7 +40,7 @@ function draw_prompt {
     # Add git stuff if we have git
     if which git &>/dev/null
     then
-	printf ' %s$(parse_git_branch)%s' $(parse_git_ahead) $none
+	printf '$(if parse_git_ahead; then printf "%s"; else printf "%s"; fi) $(parse_git_branch)%s' $magenta $yellow $none
     fi
     printf '\n'
     printf '%s\\u%s(\!)$ ' $white $none
