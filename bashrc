@@ -83,6 +83,14 @@ alias df='df -h'
 # history tweak - append file (instead of overwrite)
 shopt -s histappend
 
+# History tweak - dump buffer after each command
+if [[ -z $PROMPT_COMMAND ]]
+then
+    PROMPT_COMMAND='history -a'
+else
+    PROMPT_COMMAND="${PROMPT_COMMAND}; history -a"
+fi
+
 # no special prompt for root
 if (( $(id -u) > 0 ))
 then

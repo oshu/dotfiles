@@ -26,13 +26,5 @@ HISTIGNORE='clear:ll:la:pwd:ls:ls -ltr:'
 # History tweak - ignore duplicate entries
 HISTCONTROL=ignoredups
 
-# History tweak - dump buffer after each command
-if [[ -z $PROMPT_COMMAND ]]
-then
-    PROMPT_COMMAND='history -a'
-else
-    PROMPT_COMMAND="${PROMPT_COMMAND}; history -a"
-fi
-
 # exports
-export HISTIGNORE HISTCONTROL PROMPT_COMMAND PATH
+export HISTIGNORE HISTCONTROL PATH
