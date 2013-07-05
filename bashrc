@@ -19,33 +19,59 @@ cyan='\[\033[36m\]'
 white='\[\033[37m\]'
 
 # git prompt functions
-function parse_git_ahead {
-git status 2>/dev/null | grep -q -i -e 'ahead' && return 0 || return 1
+function git_ahead {
+  git status 2>/dev/null | grep -q -i -e 'ahead' && return 0 || return 1
 }
 
 function parse_git_dirty {
-git status 2>/dev/null | grep -q -i -e 'nothing to commit.*working directory clean' || printf '*'
+  git status 2>/dev/null | grep -q -i -e 'nothing to commit.*working directory clean' || printf '*'
+}
+
+function git_dirty {
+  if git status 2>/dev/null | grep -q -i -e 'nothing to commit.*working directory clean'
+  then
+    return 1
+  else
+    return 0
+  fi
+}
+
+function is_git_branch {
+  if git branch &>/dev/null
+  then
+    return 0
+  else
+    return 1
+  fi
+}
+
+function git_branch {
+  git branch --no-color 2>/dev/null | cut -d' ' -f2
 }
 
 function parse_git_branch {
-git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
 }
 
 # the prompt
 function draw_prompt {
-    #printf '\n'
-    printf '$(if (( $? == 0 )); then printf "%s"; else printf "%s"; fi)' $green $red
-    printf '\h:%s' $none
-    printf '%s\w%s' $white $none
-    # Add git stuff if we have git
-    if which git &>/dev/null
-    then
-        printf ' '
-	printf '$(if parse_git_ahead; then printf "%s"; else printf "%s"; fi)' $magenta $yellow
-        printf '$(parse_git_branch)%s' $none
-    fi
-    printf '\n'
-    printf '%s\\u%s(\!)$ ' $white $none
+  #printf '\n'
+  printf '$(if (( $? == 0 )); then printf "%s"; else printf "%s"; fi)' $green $red
+  printf '\h:%s' $none
+  printf '%s\w%s' $white $none
+  # Add git stuff if we have git
+  if which git &>/dev/null
+  then
+    printf ' '
+    printf '$(if is_git_branch; then printf "["; fi)'
+    printf '$(if git_ahead; then printf "%s"; else printf "%s"; fi)' $magenta $yellow
+    printf '$(git_branch)'
+    printf '$(if is_git_branch && git_dirty; then printf "*"; fi)'
+    printf '%s' $none
+    printf '$(if is_git_branch; then printf "]"; fi)'
+  fi
+  printf '\n'
+  printf '%s\\u%s(\!)$ ' $white $none
 }
 
 # aliases
