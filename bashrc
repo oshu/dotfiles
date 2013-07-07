@@ -19,23 +19,6 @@ cyan='\[\033[36m\]'
 white='\[\033[37m\]'
 
 # git prompt functions
-function git_ahead {
-  git status 2>/dev/null | grep -q -i -e 'ahead'
-}
-
-function parse_git_dirty {
-  git status 2>/dev/null | grep -q -i -e 'nothing to commit.*working directory clean' || printf '*'
-}
-
-function git_dirty {
-  if git status 2>/dev/null | grep -q -i -e 'nothing to commit.*working directory clean'
-  then
-    return 1
-  else
-    return 0
-  fi
-}
-
 function is_git_branch {
   if git branch &>/dev/null
   then
@@ -45,13 +28,31 @@ function is_git_branch {
   fi
 }
 
+
 function git_branch {
   git branch --no-color 2>/dev/null | cut -d' ' -f2
 }
 
-function parse_git_branch {
-  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/[\1$(parse_git_dirty)]/"
+
+function git_ahead {
+  git status 2>/dev/null | grep -q -i -e 'ahead'
 }
+
+
+function git_dirty {
+  if is_git_branch
+  then
+    if git status 2>/dev/null | grep -q -i -e 'nothing to commit.*working directory clean'
+    then
+      return 1
+    else
+      return 0
+    fi
+  fi
+  
+  return 1
+}
+
 
 # the prompt
 function draw_prompt {
@@ -66,7 +67,7 @@ function draw_prompt {
     printf '$(if is_git_branch; then printf "["; fi)'
     printf '$(if git_ahead; then printf "%s"; else printf "%s"; fi)' $magenta $yellow
     printf '$(git_branch)'
-    printf '$(if is_git_branch && git_dirty; then printf "*"; fi)'
+    printf '$(if git_dirty; then printf "*"; fi)'
     printf '%s' $none
     printf '$(if is_git_branch; then printf "]"; fi)'
   fi
