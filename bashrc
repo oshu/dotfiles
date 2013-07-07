@@ -20,7 +20,7 @@ white='\[\033[37m\]'
 
 # git prompt functions
 function git_ahead {
-  git status 2>/dev/null | grep -q -i -e 'ahead' && return 0 || return 1
+  git status 2>/dev/null | grep -q -i -e 'ahead'
 }
 
 function parse_git_dirty {
