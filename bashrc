@@ -99,3 +99,5 @@ then
 else
     PS1='\u@\h \W \n\$ '
 fi
+
+# kate: syntax bash;
