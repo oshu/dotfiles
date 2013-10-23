@@ -26,15 +26,6 @@ HISTIGNORE='clear:ll:la:pwd:ls:ls -ltr:'
 # History tweak - ignore duplicate entries
 HISTCONTROL=ignoredups
 
-# set up the prompt
-if (( $(id -u) > 0 )) && [[ -f $PROMPTRC ]]
-then
-  source "$PROMPTRC"
-  PS1="$(draw_prompt)"
-else
-  PS1='\u@\h \W \n\$ '
-fi
-
 # exports
 export HISTIGNORE HISTCONTROL PATH
 
