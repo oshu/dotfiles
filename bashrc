@@ -1,5 +1,7 @@
 # .bashrc
 
+PROMPTRC="$DOTFILES/promptrc"
+
 # check for and source global bashrc
 if [[ -f /etc/bashrc ]]
 then
@@ -15,12 +17,21 @@ alias df='df -h'
 # history tweak - append file (instead of overwrite)
 shopt -s histappend
 
-# History tweak - dump buffer after each command
+# history tweak - dump buffer after each command
 if [[ -z $PROMPT_COMMAND ]]
 then
   PROMPT_COMMAND='history -a'
 else
   PROMPT_COMMAND="${PROMPT_COMMAND}; history -a"
+fi
+
+# set up the prompt
+if (( $(id -u) > 0 )) && [[ -f $PROMPTRC ]]
+then
+  source "$PROMPTRC"
+  PS1="$(draw_prompt)"
+else
+  PS1='\u@\h \W \n\$ '
 fi
 
 # kate: syntax bash;

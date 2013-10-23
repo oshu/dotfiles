@@ -1,7 +1,6 @@
 # bash profile
 
 BASHRC="$DOTFILES/bashrc"
-PROMPTRC="$DOTFILES/promptrc"
 
 # Source in bashrc
 if [[ -f $BASHRC ]]
@@ -37,6 +36,6 @@ else
 fi
 
 # exports
-export HISTIGNORE HISTCONTROL PATH PS1
+export HISTIGNORE HISTCONTROL PATH
 
 # kate: syntax bash;
