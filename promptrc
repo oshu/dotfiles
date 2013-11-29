@@ -1,19 +1,19 @@
 # .promptrc - custom prompt for bash
 
 # colors
-none='\[\033[0m\]'
-black='\[\033[30m\]'
-red='\[\033[31m\]'
-RED='\[\033[1;31m\]'
-green='\[\033[32m\]'
-yellow='\[\033[33m\]'
-blue='\[\033[34m\]'
-magenta='\[\033[35m\]'
-cyan='\[\033[36m\]'
-white='\[\033[37m\]'
+none='\033[0m'
+black='\033[30m'
+red='\033[31m'
+RED='\033[1;31m'
+green='\033[32m'
+yellow='\033[33m'
+blue='\033[34m'
+magenta='\033[35m'
+cyan='\033[36m'
+white='\033[37m'
 
 # git prompt functions
-function is_git_branch {
+function prompt_is_git_branch {
   if git branch &>/dev/null
   then
     return 0
@@ -23,18 +23,13 @@ function is_git_branch {
 }
 
 
-function git_branch {
+function prompt_git_branch_name {
   git branch --no-color 2>/dev/null | cut -d' ' -f2
 }
 
 
-function git_ahead {
-  git status 2>/dev/null | grep -q -i -e 'ahead'
-}
-
-
-function git_dirty {
-  if is_git_branch
+function prompt_is_git_dirty {
+  if prompt_is_git_branch
   then
     if git status 2>/dev/null | grep -q -i -e 'nothing to commit.*working directory clean'
     then
@@ -48,24 +43,42 @@ function git_dirty {
 }
 
 
-# the prompt
-function draw_prompt {
-  #printf '\n'
-  printf '$(if (( $? == 0 )); then printf "%s"; else printf "%s"; fi)' $green $red
-  printf '\h:%s' $none
-  printf '%s\w%s' $white $none
-  # Add git stuff if we have git
-  if which git &>/dev/null
+function prompt_last_command_status {
+  if (( $? == 0 ))
   then
-    printf ' '
-    printf '$(if is_git_branch; then printf "["; fi)'
-    printf '$(if git_dirty; then printf "%s"; else printf "%s"; fi)' $magenta $green
-    printf '$(git_branch)'
-    printf '%s' $none
-    printf '$(if is_git_branch; then printf "]"; fi)'
+    printf '%b' $green
+  else
+    printf '%b' $red
   fi
-  printf '\n'
-  printf '%s\\u%s(\!)$ ' $white $none
+}
+
+
+function prompt_git_info {
+  if which git &>/dev/null
+    then
+    
+    if prompt_is_git_branch
+    then
+      printf '['
+      
+      if prompt_is_git_dirty
+      then
+        printf '%b' $magenta
+      else
+        printf '%b' $green
+      fi
+      
+      printf '%s' $(prompt_git_branch_name)
+      printf '%b' $none
+      printf ']'
+    fi
+  fi
+}
+
+
+# draw the prompt
+function draw_prompt {
+  printf '$(prompt_last_command_status)\h:%b\w%b $(prompt_git_info)%b\n\\u\[%b\](\!)$ ' $white $none $white $none
 }
 
 
