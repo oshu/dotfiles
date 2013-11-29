@@ -13,6 +13,10 @@ alias ls='ls -F --color'
 alias ll='ls -lhF --color'
 alias la='ls -lAhF --color'
 alias df='df -h'
+if which curl &>/dev/null
+then
+    alias cget='curl -O'
+fi
 
 # history tweak - append file (instead of overwrite)
 shopt -s histappend
