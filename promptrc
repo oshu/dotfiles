@@ -11,10 +11,23 @@ blue='\033[34m'
 magenta='\033[35m'
 cyan='\033[36m'
 white='\033[37m'
+bg_black='\033[40m'
+bg_red='\033[41m'
+bg_green='\033[42m'
 
 # git prompt functions
 function prompt_is_git_branch {
   if git branch &>/dev/null
+  then
+    return 0
+  else
+    return 1
+  fi
+}
+
+
+function prompt_is_ssh_session {
+  if [[ -n $SSH_CONNECTION ]]
   then
     return 0
   else
@@ -44,6 +57,12 @@ function prompt_is_git_dirty {
 
 
 function prompt_last_command_status {
+  if prompt_is_ssh_session
+  then
+    local green=${bg_green}${black}
+    local red=${bg_red}${black}
+  fi
+
   if (( $? == 0 ))
   then
     printf '%b' $green
@@ -78,7 +97,7 @@ function prompt_git_info {
 
 # draw the prompt
 function draw_prompt {
-  printf '$(prompt_last_command_status)\h:%b\w%b $(prompt_git_info)%b\n\\u\[%b\](\!)$ ' $white $none $white $none
+  printf '$(prompt_last_command_status)\h:%b%b\w%b $(prompt_git_info)%b\n\\u\[%b\](\!)$ ' $bg_black $white $none $white $none
 }
 
 
