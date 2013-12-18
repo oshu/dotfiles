@@ -1,0 +1,85 @@
+# .promptrc - custom prompt for bash
+
+# colors
+none='\033[0m'
+black='\033[30m'
+red='\033[31m'
+RED='\033[1;31m'
+green='\033[32m'
+yellow='\033[33m'
+blue='\033[34m'
+magenta='\033[35m'
+cyan='\033[36m'
+white='\033[37m'
+
+# git prompt functions
+function prompt_is_git_branch {
+  if git branch &>/dev/null
+  then
+    return 0
+  else
+    return 1
+  fi
+}
+
+
+function prompt_git_branch_name {
+  git branch --no-color 2>/dev/null | cut -d' ' -f2
+}
+
+
+function prompt_is_git_dirty {
+  if prompt_is_git_branch
+  then
+    if git status 2>/dev/null | grep -q -i -e 'nothing to commit.*working directory clean'
+    then
+      return 1
+    else
+      return 0
+    fi
+  fi
+  
+  return 1
+}
+
+
+function prompt_last_command_status {
+  if (( $? == 0 ))
+  then
+    printf '%b' $green
+  else
+    printf '%b' $red
+  fi
+}
+
+
+function prompt_git_info {
+  if which git &>/dev/null
+    then
+    
+    if prompt_is_git_branch
+    then
+      printf '['
+      
+      if prompt_is_git_dirty
+      then
+        printf '%b' $magenta
+      else
+        printf '%b' $green
+      fi
+      
+      printf '%s' $(prompt_git_branch_name)
+      printf '%b' $none
+      printf ']'
+    fi
+  fi
+}
+
+
+# draw the prompt
+function draw_prompt {
+  printf '$(prompt_last_command_status)\h:%b\w%b $(prompt_git_info)%b\n\\u\[%b\](\!)$ ' $white $none $white $none
+}
+
+
+# kate: syntax bash;
