@@ -14,6 +14,7 @@ white='\033[37m'
 bg_black='\033[40m'
 bg_red='\033[41m'
 bg_green='\033[42m'
+bg_white='\033[47m'
 
 # git prompt functions
 function prompt_is_git_branch {
@@ -57,13 +58,16 @@ function prompt_is_git_dirty {
 
 
 function prompt_last_command_status {
+  
+  local _last_command_status=$?
+  
   if prompt_is_ssh_session
   then
     local green=${bg_green}${black}
     local red=${bg_red}${black}
   fi
 
-  if (( $? == 0 ))
+  if (( _last_command_status == 0 ))
   then
     printf '%b' $green
   else
