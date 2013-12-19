@@ -3,31 +3,6 @@ dotfiles
 
 Some files I use to configure my shell environment.
 
-setup
------
-
-1. Add the variable `DOTFILES` to your bash profile and set it to the path of your dotfiles git checkout. Export it so the other scripts can use it.
-
-```bash
-export DOTFILES="$HOME/Workspace/dotfiles"
-```
-
-2. Add a stanza to source the main profile.
-
-```bash
-PROFILE="$DOTFILES/profile"
-if [[ -f $PROFILE ]]
-then
-  source $PROFILE
-fi
-```
-
-3. Replace your `.bashrc` with a link to the one in the dotfiles repo.
-
-```bash
-$ ln -s $HOME/.bashrc $DOTFILES/bashrc
-```
-
 details
 -------
 
@@ -66,3 +41,28 @@ details
   * Git branch name turn magenta when repo is dirty, green when clean.
   
   * Command number is displayed for easy resue.
+
+setup
+-----
+
+1. Add the variable `DOTFILES` to your bash profile and set it to the path of your dotfiles git checkout. Export it so the other scripts can use it.
+
+```bash
+export DOTFILES="$HOME/Workspace/dotfiles"
+```
+
+2. Add a stanza to source the main profile.
+
+```bash
+PROFILE="$DOTFILES/profile"
+if [[ -f $PROFILE ]]
+then
+  source $PROFILE
+fi
+```
+
+3. Replace your `.bashrc` with a link to the one in the dotfiles repo.
+
+```bash
+$ ln -s $HOME/.bashrc $DOTFILES/bashrc
+```
