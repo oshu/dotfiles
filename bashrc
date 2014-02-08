@@ -9,9 +9,9 @@ then
 fi
 
 # aliases
-alias ls='ls -F --color'
-alias ll='ls -lhF --color'
-alias la='ls -lAhF --color'
+alias ls='ls -F --color=auto'
+alias ll='ls -lhF --color=auto'
+alias la='ls -lAhF --color=auto'
 alias df='df -h'
 if which curl &>/dev/null
 then
