@@ -18,15 +18,27 @@ then
     alias cget='curl -O'
 fi
 
+# functions
+function update_title {
+    printf '\033]0;%s@%s\007' $USER $(hostname -s)
+}
+
 # history tweak - append file (instead of overwrite)
 shopt -s histappend
 
-# history tweak - dump buffer after each command
+# setup up the prompt command
 if [[ -z $PROMPT_COMMAND ]]
 then
-  PROMPT_COMMAND='history -a'
+  PROMPT_COMMAND='history -a; update_title'
 else
-  PROMPT_COMMAND="${PROMPT_COMMAND}; history -a"
+  if ! [[ $PROMPT_COMMAND =~ "history -a" ]]
+  then
+    PROMPT_COMMAND="${PROMPT_COMMAND}; history -a"
+  fi
+  if ! [[ $PROMPT_COMMAND =~ "update_title" ]]
+  then
+    PROMPT_COMMAND="${PROMPT_COMMAND}; update_title"
+  fi
 fi
 
 # set up the prompt
