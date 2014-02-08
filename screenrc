@@ -130,8 +130,6 @@ bind h
 # blankerprg rain -d 100
 # idle 30 blanker
 
-# my stuff
+# status line
 hardstatus alwayslastline
-#hardstatus string "%{= g} %{= w}%-w%{=r}%n %t%{-}%+W"
 hardstatus string '%{= bw}[ %{+b}%H%{-b} : %{+b}%l%{-b} ] %-w%{+b}(%{-b}%n %t%{+b})%{-b}%+w %=[ %{+b}%c%{-b} ]'
-#hardstatus string '%{= bw}[ %{W}%H %{w}][%= %{= bw}%?%-Lw%?%{y}(%{W}%n*%f%t%?(%u)%?%{y})%{w}%?%+Lw%?%?%= %{w}][ %{W}%c %{w}]'
