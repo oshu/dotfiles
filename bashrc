@@ -23,8 +23,28 @@ function update_title {
     printf '\033]0;%s@%s\007' $USER $(hostname -s)
 }
 
+
+function path_fix {
+  local _DIR="$1"
+
+  if ! grep -q -E -e "\(^${_DIR}:|:${_DIR}[^/]?" <<< $PATH
+  then
+    PATH="${_DIR}:${PATH}"
+  fi
+}
+
+
 # history tweak - append file (instead of overwrite)
 shopt -s histappend
+
+## fix up the path
+for p in "$HOME/bin" /sbin /usr/sbin /usr/local/sbin /opt/local/bin /opt/local/libexec/gnubin
+do
+  if [[ -d $p ]]
+  then
+    path_fix "$p"
+  fi
+done
 
 # setup up the prompt command
 if [[ -z $PROMPT_COMMAND ]]
