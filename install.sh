@@ -8,13 +8,14 @@ RC_FILES='
 bashrc
 screenrc 
 vimrc
+vim
 '
 
 function backup_file {
   local _FILE="$1"
   local _TIMESTAMP=$(date +'%F_%T')
 
-  if [[ -f $HOME/$_FILE ]] && [[ ! -L $HOME/$_FILE ]]
+  if [[ -e $HOME/$_FILE ]] && [[ ! -L $HOME/$_FILE ]]
   then
     printf -- '--> %s copied to %s\n' "$HOME/$_FILE" "$HOME/$_FILE-dotfile_backup_$_TIMESTAMP"
     mv "$HOME/$_FILE" "$HOME/$_FILE-dotfile_backup_$_TIMESTAMP"
