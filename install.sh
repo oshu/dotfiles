@@ -7,6 +7,7 @@ DOTFILES="$1"
 RC_FILES='
 bashrc
 screenrc 
+vimrc
 '
 
 function backup_file {
