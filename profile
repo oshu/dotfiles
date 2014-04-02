@@ -26,7 +26,7 @@ export HISTIGNORE HISTCONTROL EDITOR
 if is_ssh_session
 then
   printf '\n'
-  screen -ls
+  screen -ls | sed -e '/^No Sockets found.*$/d'
 fi
 
 # kate: syntax bash;
