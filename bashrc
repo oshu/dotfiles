@@ -13,14 +13,29 @@ alias ls='ls -F --color=auto'
 alias ll='ls -lhF --color=auto'
 alias la='ls -lAhF --color=auto'
 alias df='df -h'
+
+if which git &>/dev/null
+then
+  alias gs='git status'
+  alias gd='git diff'
+  alias gl='git log'
+  alias gc='git commit'
+  alias ga='git add'
+fi
+
+if which screen &>/dev/null
+then
+  alias sr='screen -r'
+fi
+
 if which curl &>/dev/null
 then
-    alias cget='curl -O'
+  alias cget='curl -O'
 fi
 
 # functions
 function update_title {
-    printf '\033]0;%s@%s\007' $USER $(hostname -s)
+  printf '\033]0;%s@%s\007' $USER $(hostname -s)
 }
 
 

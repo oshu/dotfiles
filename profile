@@ -16,8 +16,11 @@ HISTIGNORE='clear:ll:la:pwd:ls:ls -ltr:'
 # History tweak - ignore duplicate entries
 HISTCONTROL=ignoredups
 
+# Default editor
+EDITOR=vim
+
 # exports
-export HISTIGNORE HISTCONTROL
+export HISTIGNORE HISTCONTROL EDITOR
 
 # screen
 if is_ssh_session
