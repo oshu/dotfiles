@@ -1,5 +1,7 @@
 # .promptrc - custom prompt for bash
 
+source "$DOTFILES/functions"
+
 # colors
 none='\033[0m'
 black='\033[30m'
@@ -19,16 +21,6 @@ bg_white='\033[47m'
 # git prompt functions
 function prompt_is_git_branch {
   if git branch &>/dev/null
-  then
-    return 0
-  else
-    return 1
-  fi
-}
-
-
-function prompt_is_ssh_session {
-  if [[ -n $SSH_CONNECTION ]]
   then
     return 0
   else
@@ -61,7 +53,7 @@ function prompt_last_command_status {
   
   local _last_command_status=$?
   
-  if prompt_is_ssh_session
+  if is_ssh_session
   then
     local green=${bg_green}${black}
     local red=${bg_red}${black}

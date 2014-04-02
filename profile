@@ -2,6 +2,8 @@
 
 BASHRC="$DOTFILES/bashrc"
 
+source "$DOTFILES/functions"
+
 # Source in bashrc
 if [[ -f $BASHRC ]]
 then
@@ -16,5 +18,12 @@ HISTCONTROL=ignoredups
 
 # exports
 export HISTIGNORE HISTCONTROL
+
+# screen
+if is_ssh_session
+then
+  printf '\n'
+  screen -ls
+fi
 
 # kate: syntax bash;

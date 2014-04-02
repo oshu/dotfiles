@@ -1,0 +1,11 @@
+# functions - custom functions for bash
+
+function is_ssh_session {
+  if [[ -n $SSH_CONNECTION ]]
+  then
+    return 0
+  else
+    return 1
+  fi
+}
+
