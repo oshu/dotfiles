@@ -93,7 +93,7 @@ function prompt_git_info {
 
 # draw the prompt
 function draw_prompt {
-  printf '$(prompt_last_command_status)\h:%b%b\w%b $(prompt_git_info)%b\n\\u\[%b\](\!)$ ' $bg_black $white $none $white $none
+  printf '$(prompt_last_command_status)\h:%b%b\w%b $(prompt_git_info)%b\n\\u\[%b\](\!)$ ' $none $white $none $white $none
 }
 
 
