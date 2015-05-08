@@ -10,15 +10,18 @@ set whichwrap+=<,>,h,l
 " Show matching brackets when text indicator is over them
 set showmatch
 
-" Use spaces instead of tabs
-set expandtab
+let _curfile = expand("%:t")
+if _curfile =~ "Makefile" || _curfile =~ "makefile" || _curfile =~ ".*\.mk"
+set noexpandtab  " Tab setup for Makefiles
+set shiftwidth=4 " 1 tab == 8 spaces
+else
+set expandtab    " Use spaces instead of tabs
+set shiftwidth=2 " 1 tab == 4 spaces
+set tabstop=2
+endif
 
 " Be smart when using tabs ;)
 set smarttab
-
-" 1 tab == 4 spaces
-set shiftwidth=2
-set tabstop=2
 
 set ai "Auto indent
 set si "Smart indent
