@@ -1,6 +1,6 @@
 # bash profile
 
-BASHRC="$DOTFILES/bashrc"
+BASHRC="$HOME/.bashrc"
 
 source "$DOTFILES/functions"
 
