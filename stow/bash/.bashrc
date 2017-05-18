@@ -30,7 +30,7 @@ fi
 
 if which curl &>/dev/null
 then
-  alias cget='curl -O'
+  alias cget='curl -L -O'
 fi
 
 # functions
