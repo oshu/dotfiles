@@ -14,6 +14,11 @@ alias ll='ls -lhF --color=auto'
 alias la='ls -lAhF --color=auto'
 alias df='df -h'
 
+if [[ $(uname) == "Darwin" ]]
+then
+  alias port='sudo port'
+fi
+
 if which git &>/dev/null
 then
   alias gs='git status'
