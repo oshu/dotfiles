@@ -58,7 +58,7 @@ function path_fix {
 shopt -s histappend
 
 ## fix up the path
-for p in "$HOME/bin" /sbin /usr/sbin /usr/local/sbin /opt/local/bin /opt/local/libexec/gnubin
+for p in "$HOME/bin" /sbin /usr/sbin /usr/local/sbin /opt/local/bin /opt/local/libexec/gnubin /usr/pkg/gnu/bin
 do
   if [[ -d $p ]]
   then
