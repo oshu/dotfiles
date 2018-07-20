@@ -6,7 +6,7 @@ set -u
 
 TARGET_DIR="$HOME"
 STOW_DIR=stow
-PACKAGES='bash screen vim'
+PACKAGES='bash screen vim tmux'
 STOW=stow
 
 for P in $PACKAGES
