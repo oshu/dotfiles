@@ -61,8 +61,8 @@ then
 fi
 ```
 
-3. Replace your `.bashrc` with a link to the one in the dotfiles repo.
+3. (Make sure you have gnu stow installed first) run the stow.sh script.
 
 ```bash
-$ ln -s $HOME/.bashrc $DOTFILES/bashrc
+$ ./stow.sh
 ```
