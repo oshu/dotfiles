@@ -61,8 +61,9 @@ then
 fi
 ```
 
-3. (Make sure you have gnu stow installed first) run the stow.sh script.
+3. (Make sure you have gnu stow installed first) Move your .bashrc and run the stow.sh script.
 
 ```bash
+$ mv $HOME/.bashrc $HOME/.bashrc-orig
 $ ./stow.sh
 ```
