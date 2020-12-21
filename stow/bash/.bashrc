@@ -14,6 +14,11 @@ alias ll='ls -lhF --color=auto'
 alias la='ls -lAhF --color=auto'
 alias df='df -h'
 
+if [[ $(uname) == "Darwin" ]]
+then
+  alias port='sudo port'
+fi
+
 if which git &>/dev/null
 then
   alias gs='git status'
@@ -30,7 +35,7 @@ fi
 
 if which curl &>/dev/null
 then
-  alias cget='curl -O'
+  alias cget='curl -L -O'
 fi
 
 # functions
@@ -53,7 +58,7 @@ function path_fix {
 shopt -s histappend
 
 ## fix up the path
-for p in "$HOME/bin" /sbin /usr/sbin /usr/local/sbin /opt/local/bin /opt/local/libexec/gnubin
+for p in "$HOME/bin" /sbin /usr/sbin /usr/local/sbin /opt/local/bin /opt/local/libexec/gnubin /usr/pkg/gnu/bin
 do
   if [[ -d $p ]]
   then

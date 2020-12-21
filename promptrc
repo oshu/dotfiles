@@ -37,7 +37,7 @@ function prompt_git_branch_name {
 function prompt_is_git_dirty {
   if prompt_is_git_branch
   then
-    if git status 2>/dev/null | grep -q -i -e 'nothing to commit.*working tree clean'
+    if [[ $(git status --short) == '' ]]
     then
       return 1
     else
